@@ -20,7 +20,7 @@ export const Sample:Story = {
   },
   args:Object.assign(BaseArgs, {
     markerCount:100,
-    markerGap:0.06
+    markerGap:0.1
   })
 }
 
@@ -123,21 +123,21 @@ function AreaSelection({
           }else{
 
             //모두 숨기고 지도 이동
-            setMarkers([])
-            controller.panningTo(PolygonCalculator.getCenter(areaPositions.current))  
+            setMarkers([]);
+
+            const map = controller.getMap()
+            if(map && map instanceof naver.maps.Map){
+              //morph 는 naver 전용
+              map.morph(PolygonCalculator.getCenter(areaPositions.current), 13)
+            }else{
+              controller.panningTo(PolygonCalculator.getCenter(areaPositions.current))  
+            }
             
             setTimeout(()=>{
 
-              //줌레벨
-              controller.setZoomLevel(13)
-            
-              setTimeout(()=>{
-
-                //마커 필터링
-                const filteredMarkers = PolygonCalculator.getIncludedPositions(areaPositions.current, orgMarkers.current)
-                setMarkers(filteredMarkers)
-
-              }, 200)
+              //마커 필터링
+              const filteredMarkers = PolygonCalculator.getIncludedPositions(areaPositions.current, orgMarkers.current)
+              setMarkers(filteredMarkers)
 
             }, 500)
 
@@ -155,7 +155,9 @@ function AreaSelection({
         setMouseInArea(true)
       },
       }}
-      ></PolygonMarker>
+      >
+        <FlexCenter><TextBox>GBD 강남이지만 zIndex 가 폴리곤에 속한다</TextBox></FlexCenter>
+      </PolygonMarker>
     }
 
     {markers.map((pos, idx)=>{
@@ -185,7 +187,13 @@ const FlexColumn = styled(Flex)`
   flex-direction:column;
 `
 
+const FlexCenter = styled(Flex)`
+  justify-content:center;
+  align-items:center;
+`
+
 const TextBox = styled(Flex)`
+  height:fit-content;
   background:gray;
   color:white;
   border-radius:5px;
