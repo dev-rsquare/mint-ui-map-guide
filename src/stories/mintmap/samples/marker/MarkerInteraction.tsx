@@ -60,8 +60,8 @@ function SampleTemplate({
   }, [markerCount, markerGap])
 
   return <MintMap mapKey={MAP_KEYS.get(mapType) || ''} mapType={mapType} base={mapBase.current}>
-    {markers.map((item)=>{
-      return <TitledMarker title={'sssss'} position={item.pos}
+    {markers.map((item, idx)=>{
+      return <TitledMarker key={idx} title={'sssss'} position={item.pos}
       ></TitledMarker>
     })}
   </MintMap>

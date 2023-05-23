@@ -50,8 +50,8 @@ function SampleTemplate({
   }, [markerCount, markerGap])
 
   return <MintMap mapKey={MAP_KEYS.get(mapType) || ''} mapType={mapType} base={mapBase.current}>
-    {markers.map((pos)=>{
-      return <SimpleCircle color={`hsl(${(Math.random() * 360).toFixed(0)} 100% 60%)`} position={pos}></SimpleCircle>
+    {markers.map((pos, idx)=>{
+      return <SimpleCircle key={idx} color={`hsl(${(Math.random() * 360).toFixed(0)} 100% 60%)`} position={pos}></SimpleCircle>
     })}
   </MintMap>
 

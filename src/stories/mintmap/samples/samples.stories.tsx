@@ -10,3 +10,4 @@ export default {
 export { Sample as 간단마커예제 } from "./marker/MarkerSample"
 export { Sample as 마커컨트롤 } from "./marker/MarkerInteraction"
 export { Sample as 지도오버레이선택 } from "./complex/OverlayEvents"
+export { Sample as 영역선택 } from "./complex/PolygonCalculation"
