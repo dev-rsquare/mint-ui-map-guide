@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 
 type Story = StoryObj<typeof SampleTemplate>;
 
-export const Marker:Story = {
+export const Sample:Story = {
 
   render: (props)=>{
     
@@ -22,7 +22,7 @@ export const Marker:Story = {
   })
 }
 
-export default Marker
+export default Sample
 
 //=================================================================
 

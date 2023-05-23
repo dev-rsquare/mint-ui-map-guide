@@ -23,8 +23,7 @@ export const BaseArgs = {
   mapType:initMap
 } as MintMapProps
 
-export const CENTER = {
+export const CENTER = {   //선릉역
   lat:37.504497373023206,
   lng:127.04896282498558,
 }
-

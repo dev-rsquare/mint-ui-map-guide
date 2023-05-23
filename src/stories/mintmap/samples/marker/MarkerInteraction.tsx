@@ -1,5 +1,5 @@
 import { StoryObj } from "@storybook/react";
-import { BaseProps, MintMap, MintMapProps, Position } from "@mint-ui/map";
+import { BaseProps, MintMap, MintMapProps } from "@mint-ui/map";
 import { BaseArgs, CENTER, MAP_KEYS } from "../../../common/const"
 import Container from "src/app/styled/Container";
 import PositionGenerator from "../../util/PositionGenerator";
@@ -8,7 +8,7 @@ import { TitledMarker } from "./components/TitledMarker";
 
 type Story = StoryObj<typeof SampleTemplate>;
 
-export const Marker:Story = {
+export const Sample:Story = {
 
   render: (props)=>{
     
@@ -22,7 +22,7 @@ export const Marker:Story = {
   })
 }
 
-export default Marker
+export default Sample
 
 //=================================================================
 

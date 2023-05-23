@@ -11,11 +11,9 @@ export function TitledMarker({title, hover=false, ...props}:TitledMarkerProps & 
   const [mouseDown, setMouseDown] = useState(false)
   const [hoverState, setHoverState] = useState(hover)
   
-  
-
   return <MapMarkerWrapper {...props}>
-    <Marks background={hoverState?'lightgreen':'red'}/>
-    <Title background={mouseDown?'lightgreen':'white'} borderColor={hoverState?'lightgreen':'red'}
+    <Marks background={hoverState?'lightgreen':'coral'}/>
+    <Title background={mouseDown?'lightgreen':'white'} borderColor={hoverState?'lightgreen':'coral'}
     onMouseDown={()=>{
       setMouseDown(true)
     }}
