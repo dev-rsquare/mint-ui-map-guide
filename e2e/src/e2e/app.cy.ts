@@ -1,6 +1,6 @@
 import { getGreeting } from '../support/app.po';
 
-describe('mint-ui-map-guide-nx', () => {
+describe('mint-ui-map-guide', () => {
   beforeEach(() => cy.visit('/'));
 
   it('should display welcome message', () => {
@@ -8,6 +8,6 @@ describe('mint-ui-map-guide-nx', () => {
     cy.login('my-email@something.com', 'myPassword');
 
     // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome mint-ui-map-guide-nx');
+    getGreeting().contains('Welcome mint-ui-map-guide');
   });
 });
