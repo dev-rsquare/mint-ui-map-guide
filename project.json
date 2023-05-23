@@ -1,5 +1,5 @@
 {
-  "name": "mint-ui-map-guide-nx",
+  "name": "mint-ui-map-guide",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "./src",
   "projectType": "application",
@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/mint-ui-map-guide-nx"
+        "outputPath": "dist/mint-ui-map-guide"
       },
       "configurations": {
         "development": {
@@ -24,15 +24,15 @@
       "executor": "@nx/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "mint-ui-map-guide-nx:build"
+        "buildTarget": "mint-ui-map-guide:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "mint-ui-map-guide-nx:build:development",
+          "buildTarget": "mint-ui-map-guide:build:development",
           "hmr": true
         },
         "production": {
-          "buildTarget": "mint-ui-map-guide-nx:build:production",
+          "buildTarget": "mint-ui-map-guide:build:production",
           "hmr": false
         }
       }
@@ -41,23 +41,23 @@
       "executor": "@nx/vite:preview-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "mint-ui-map-guide-nx:build"
+        "buildTarget": "mint-ui-map-guide:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "mint-ui-map-guide-nx:build:development"
+          "buildTarget": "mint-ui-map-guide:build:development"
         },
         "production": {
-          "buildTarget": "mint-ui-map-guide-nx:build:production"
+          "buildTarget": "mint-ui-map-guide:build:production"
         }
       }
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/mint-ui-map-guide-nx"],
+      "outputs": ["coverage/mint-ui-map-guide"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "coverage/mint-ui-map-guide-nx"
+        "reportsDirectory": "coverage/mint-ui-map-guide"
       }
     },
     "lint": {
@@ -70,7 +70,44 @@
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "mint-ui-map-guide-nx:build"
+        "buildTarget": "mint-ui-map-guide:build"
+      }
+    },
+    "storybook": {
+      "executor": "@nx/storybook:storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "./.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nx/storybook:build",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/mint-ui-map-guide",
+        "configDir": "./.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "mint-ui-map-guide:build-storybook",
+        "staticFilePath": "dist/storybook/mint-ui-map-guide"
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "mint-ui-map-guide:build-storybook:ci"
+        }
       }
     }
   },
