@@ -68,12 +68,13 @@ function AreaSelection({
 
     const handleMouseClick = (e:EventParam<MapUIEventParam>)=>{
       if(drawMode){
-        setPositions([...infoRef.current.positions, e.param.position])
+        guidePosition && setPositions([...infoRef.current.positions, guidePosition])
       }
     }
     
     const handleMousemove = (e:EventParam<MapUIEventParam>)=>{
       
+      //클릭 이벤트 씹힘 방지를 위해 원래 포인터 위치보다 3px 이동
       const posParam = e.param.position
       const offset = controller.positionToOffset(posParam)
       offset.x -= 3
@@ -161,9 +162,9 @@ function AreaSelection({
     shapeProperties={{
       fill:'green',
       fillOpacity:0.2,
-      // stroke:'green',
-      // strokeWidth:'2px',
-      // strokeDasharray:'6 2',
+      stroke:'green',
+      strokeWidth:'2px',
+      strokeDasharray:'6 2',
     }} />}
 
     {/* 영역 가이드 선 */}
@@ -178,7 +179,7 @@ function AreaSelection({
     ></PolygonMarker>}
 
     {positions.map((pos, idx)=>{
-      return <CircleMarker key={idx} center={pos} radius={10} background="red" zIndex={6}></CircleMarker>
+      return <CircleMarker key={idx} center={pos} radius={6} background="red" zIndex={6}></CircleMarker>
     })}
 
     {/* 영역 폴리곤 */}
@@ -195,7 +196,7 @@ function AreaSelection({
       <TextBox>{`원점으로부터 ${meter} 미터`}</TextBox>
     </MapMarkerWrapper>}
 
-    {polygonSize && guidePosition && <MapMarkerWrapper position={guidePosition} anchor={new Offset(-20, -50)} zIndex={999}>  
+    {polygonSize > 0 && guidePosition && <MapMarkerWrapper position={guidePosition} anchor={new Offset(-20, -50)} zIndex={999}>  
       <TextBox>{`면적 ${polygonSize} m2`}</TextBox>
     </MapMarkerWrapper>}
 
