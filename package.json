@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@mint-ui/map": "^0.5.3-beta",
+    "@mint-ui/map": "^0.5.5-beta",
     "@swc/helpers": "~0.5.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
