@@ -74,19 +74,14 @@ function AreaSelection({
     
     const handleMousemove = (e:EventParam<MapUIEventParam>)=>{
       
-      //클릭 이벤트 씹힘 방지를 위해 원래 포인터 위치보다 3px 이동
       const posParam = e.param.position
-      const offset = controller.positionToOffset(posParam)
-      offset.x -= 3
-      offset.y -= 3
-      const pos2 = controller.offsetToPosition(offset)
-      setGuidePosition(pos2)
+      setGuidePosition(posParam)
 
       const {positions} = infoRef.current
       
       //포인터 위치에 따라 폴리곤 면적 구하기
       if(positions.length > 1){
-        setPolygonSize(Number(PolygonCalculator.calculatePolygonSize([...positions, pos2]).toFixed(0)))
+        setPolygonSize(Number(PolygonCalculator.calculatePolygonSize([...positions, posParam]).toFixed(0)))
       }else{
         setPolygonSize(0)
       }
@@ -95,7 +90,7 @@ function AreaSelection({
       if(positions.length > 0){
         
         const pos1 = positions[0]
-        const km = GeoCalulator.computeDistanceKiloMeter(pos1, pos2)
+        const km = GeoCalulator.computeDistanceKiloMeter(pos1, posParam)
         setMeter((km * 1000).toFixed(1))
 
         setGuideCircleRadius(km * 1000)
@@ -165,13 +160,14 @@ function AreaSelection({
       stroke:'green',
       strokeWidth:'2px',
       strokeDasharray:'6 2',
+      pointerEvents:'none'
     }} />}
 
     {/* 영역 가이드 선 */}
-    {positions.length > 1 && <PolygonMarker  zIndex={5} position={positions} mode={'POLYLINE'} simplifyPath={false}></PolygonMarker>}
+    {positions.length > 1 && <PolygonMarker  zIndex={5} position={positions} mode={'POLYLINE'} simplifyPath={false} svgProperties={{pointerEvents:'none'}}></PolygonMarker>}
     
     {positions.length > 0 && guidePosition && <PolygonMarker zIndex={5} position={[positions[0], guidePosition]} mode="POLYLINE"
-    shapeProperties={{strokeDasharray:'4 4'}}
+    shapeProperties={{strokeDasharray:'4 4', pointerEvents:'none'}}
     />}
     
     {guidePosition && positions.length > 0 && <PolygonMarker zIndex={5} position={[positions[positions.length - 1], guidePosition]} mode={'POLYLINE'}  simplifyPath={false}
@@ -179,7 +175,7 @@ function AreaSelection({
     ></PolygonMarker>}
 
     {positions.map((pos, idx)=>{
-      return <CircleMarker key={idx} center={pos} radius={6} background="red" zIndex={6}></CircleMarker>
+      return <CircleMarker key={idx} center={pos} radius={6} background="red" zIndex={6} svgProperties={{pointerEvents:'none'}}></CircleMarker>
     })}
 
     {/* 영역 폴리곤 */}
