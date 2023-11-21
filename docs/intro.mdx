@@ -1,0 +1,71 @@
+---
+sidebar_position: 1
+---
+
+import { SampleMap } from "@site/src/components/Intro.tsx"
+
+# 시작하기
+
+## 요구사항
+- React 16 버전 이상
+  - subItem
+    - sub-subItem
+- Item 2
+
+### 테스트
+
+테스트
+
+#### 테스트2222
+
+##### 테스트3333
+
+## 설치
+
+라이브러리 설치
+
+```bash
+npm install @mint-ui/map
+```
+
+## 지도와 마커 생성 예제
+
+MintMap 컴포넌트 하위에 마커 컴포넌트 (MapMarkerWrapper) 를 배치합니다.
+
+마커 컴포넌트 하위에 실제 지도에 마커로 나타낼 Element 를 배치합니다.
+
+```jsx
+...
+...
+import { MapMarkerWrapper, MintMap, Position } from '@mint-ui/map'
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root')
+)
+
+export function MyMapComponent(){
+
+  return <MintMap 
+    mapType={'google'} 
+    mapKey={'YOUR_GOOGLE_MAP_KEY'}
+    mapId='YOUR_GOOGLE_MAP_ID' //Optional: For advanced marker in Google Maps
+    base={{center:new Position(37.504497373023206, 127.04896282498558), zoomLevel:12}}
+  >
+    {/* Your marker */}
+    <MapMarkerWrapper position={new Position(37.504497373023206, 127.04896282498558)}>
+    
+      {/* Your marker elements */}
+      <div style={{width:'10px', height:'10px', background:'red', borderRadius:'10px'}}></div>
+      
+    </MapMarkerWrapper>
+
+  </MintMap>
+
+}
+
+root.render((<MyMapComponent/>))
+```
+
+<SampleMap></SampleMap>
+
+mapType 의 변경만으로 지도의 종류를 바꿀 수 있습니다.
