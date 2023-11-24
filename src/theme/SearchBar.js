@@ -84,6 +84,7 @@ function SearchModal({ recentRef, favoriteRef, favoriteList, setFavoriteList, se
   const filteredData = filterData(searchText, searchData);
   const resultsRef = useRef(null);
   const inputRef = useRef(null);
+  const [composeEnd, setComposeEnd] = useState(false);
 
   const handleInputChange = (e) => {
     setSearchText(e.target.value);
@@ -113,6 +114,8 @@ function SearchModal({ recentRef, favoriteRef, favoriteList, setFavoriteList, se
             ref={inputRef}
             placeholder='검색'
             value={searchText}
+            onCompositionStart={() => setComposeEnd(false)}
+            onCompositionEnd={() => setComposeEnd(true)}
             onChange={handleInputChange}
           />
         </div>
@@ -120,7 +123,7 @@ function SearchModal({ recentRef, favoriteRef, favoriteList, setFavoriteList, se
           {searchText === '' ? (
             <SearchHistory inputRef={inputRef} recentRef={recentRef} favoriteRef={favoriteRef} favoriteList={favoriteList} setFavoriteList={setFavoriteList} searchList={searchList} setSearchList={setSearchList} isSearchOpen={isSearchOpen} setSearchText={setSearchText} setIsSearchOpen={setIsSearchOpen} modalRef={modalRef} />
           ) : (
-            <SearchResult favoriteList={favoriteList} searchList={searchList} setSearchList={setSearchList} isSearchOpen={isSearchOpen} setSearchText={setSearchText} setIsSearchOpen={setIsSearchOpen} modalRef={modalRef} searchText={searchText} data={filteredData} />
+            <SearchResult composeEnd={composeEnd} favoriteList={favoriteList} searchList={searchList} setSearchList={setSearchList} isSearchOpen={isSearchOpen} setSearchText={setSearchText} setIsSearchOpen={setIsSearchOpen} modalRef={modalRef} searchText={searchText} data={filteredData} />
           )}
         </div>
       </dialog>
@@ -368,7 +371,7 @@ function SearchHistory({ inputRef, recentRef, favoriteRef, favoriteList, setFavo
   );
 }
 
-function SearchResult({ favoriteList, searchList, setSearchList, isSearchOpen, searchText, setSearchText, setIsSearchOpen, modalRef, data }) {
+function SearchResult({ composeEnd, favoriteList, searchList, setSearchList, isSearchOpen, searchText, setSearchText, setIsSearchOpen, modalRef, data }) {
   const history = useHistory();
 
   const pageData = data.pageData;
@@ -448,7 +451,6 @@ function SearchResult({ favoriteList, searchList, setSearchList, isSearchOpen, s
       }
     }
   }
-    
 
   const handleKeyPress = (event) => {
     const totalLength = pageData.length + headingData.length + contentData.length;
@@ -461,10 +463,10 @@ function SearchResult({ favoriteList, searchList, setSearchList, isSearchOpen, s
     }
 
     if (totalLength !== 0 && isSearchOpen) {
-      if (event.key === 'ArrowUp') {
+      if (event.key === 'ArrowUp' && composeEnd) {
         setLastHovered((lastHovered - 1 + totalLength) % totalLength);
         scrollUp();
-      } else if (event.key === 'ArrowDown') {
+      } else if (event.key === 'ArrowDown' && composeEnd) {
         setLastHovered((lastHovered + 1) % totalLength);
         scrollDown();
       } else if (event.key === 'Enter') {
@@ -480,7 +482,7 @@ function SearchResult({ favoriteList, searchList, setSearchList, isSearchOpen, s
         pathName = pathName + item.pathName
         history.push(pathName);
         handleSearchClick(favoriteList, searchList, setSearchList, setSearchText, setIsSearchOpen, modalRef, item);
-      } else if (event.key === 'Tab') {
+      } else if (event.key === 'Tab' && composeEnd) {
         if (totalLength !== pageData.length && totalLength !== headingData.length && totalLength !== contentData.length){
           if (pageData.length !== 0 && headingData.length !== 0 && contentData.length !== 0) {
             if (lastHovered < pageData.length) {
@@ -529,7 +531,7 @@ function SearchResult({ favoriteList, searchList, setSearchList, isSearchOpen, s
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, [pageData, headingData, contentData, lastHovered, setLastHovered, isSearchOpen]);
+  }, [pageData, headingData, contentData, lastHovered, setLastHovered, isSearchOpen, composeEnd]);
 
   useEffect(() => {
     setLastHovered(0);
