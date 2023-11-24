@@ -28,6 +28,10 @@ dialog::backdrop {
   background-color: rgba(40, 50, 66, 0.582);
 }
 
+dialog::backdrop body {
+  overflow: hidden;
+}
+
 dialog {
   width: 560px;
   border: none;
@@ -130,8 +134,9 @@ dialog h3 {
   color: #2F8555;
   margin-top: 5px;
   margin-bottom: 8px;
-  font-size: 15px;
   font-weight: 500;
+  margin-left: 2px;
+  font-size: 15px
 }
 
 [data-theme='dark'] dialog h3 {
@@ -239,13 +244,6 @@ dialog h3 {
   justify-content: center;
 }
 
-.results-container {
-  max-height: 420px;
-  overflow-y: scroll;
-  width: 100%;
-  padding-right: 4px;
-}
-
 .history-container {
   max-height: 240px;
   overflow-y: scroll;
@@ -293,4 +291,14 @@ dialog h3 {
 
 .hovered .favorited {
   color: white;
+}
+
+body.dialog-open {
+  overflow: hidden;
+  height: 100%;
+}
+
+html.dialog-open {
+  overflow: hidden;
+  height: 100%;
 }
