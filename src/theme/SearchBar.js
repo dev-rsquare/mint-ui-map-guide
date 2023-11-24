@@ -84,7 +84,7 @@ function SearchModal({ recentRef, favoriteRef, favoriteList, setFavoriteList, se
   const filteredData = filterData(searchText, searchData);
   const resultsRef = useRef(null);
   const inputRef = useRef(null);
-  const [composeEnd, setComposeEnd] = useState(false);
+  const [composeEnd, setComposeEnd] = useState(true);
 
   const handleInputChange = (e) => {
     setSearchText(e.target.value);
