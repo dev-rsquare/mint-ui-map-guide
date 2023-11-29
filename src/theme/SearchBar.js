@@ -23,11 +23,8 @@ export default function SearchBarWrapper() {
       const storedSearchList = localStorage.getItem('searchList');
       const storedFavoriteList = localStorage.getItem('favoriteList');
 
-      // Check if localStorage is available (in the browser)
-      if (storedSearchList && storedFavoriteList) {
-        setSearchList(JSON.parse(storedSearchList) || []);
-        setFavoriteList(JSON.parse(storedFavoriteList) || []);
-      }
+      setSearchList(JSON.parse(storedSearchList) || []);
+      setFavoriteList(JSON.parse(storedFavoriteList) || []);
     };
 
     initializeState();
