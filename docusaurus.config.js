@@ -1,5 +1,8 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
+require('dotenv').config({
+  path: '.env.local'
+});
 
 const { dependencies } = require('./package.json');
 const mintMapVersion = dependencies['@mint-ui/map'];
@@ -10,8 +13,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: `@mint-ui/map ${mintMapVersion}`,
-  tagline: 'Map Components for React',
+  title: `Guide for @mint-ui/map ${mintMapVersion}`,
+  tagline: 'The React library for interactive maps',
   favicon: 'img/favicon/favicon.ico',
 
   // Set the production url of your site here
@@ -25,10 +28,15 @@ const config = {
   organizationName: 'dev-rsquare', // Usually your GitHub org/user name.
   projectName: 'mint-ui-map-guide', // Usually your repo name.
   deploymentBranch: 'gh-pages',
-  trailingSlash: false, 
+  trailingSlash: false,
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
+
+  customFields: {
+    googleMapKey: process.env.GOOGLE_MAP_KEY,
+    naverMapKey: process.env.NAVER_MAP_KEY,
+  },
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
