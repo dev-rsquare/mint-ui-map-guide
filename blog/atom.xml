@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://github.com/mint-ui-map-guide/blog</id>
-    <title>@mint-ui/map 0.8.0-beta Blog</title>
+    <title>Guide for @mint-ui/map 0.10.0-beta Blog</title>
     <updated>2021-08-26T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://github.com/mint-ui-map-guide/blog"/>
-    <subtitle>@mint-ui/map 0.8.0-beta Blog</subtitle>
+    <subtitle>Guide for @mint-ui/map 0.10.0-beta Blog</subtitle>
     <icon>https://github.com/mint-ui-map-guide/img/favicon/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
