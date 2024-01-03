@@ -1,5 +1,5 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { MapType, MintMap, MintMapProps, Position } from '@mint-ui/map';
+import { MapType, MintMap as MintUIMap, MintMapProps, Position } from '@mint-ui/map';
 import React, { useEffect, useState } from 'react';
 
 interface MapProps extends Omit<MintMapProps, 'mapKey'|'mapType'> {
@@ -8,7 +8,7 @@ interface MapProps extends Omit<MintMapProps, 'mapKey'|'mapType'> {
   h?:string;
 }
 
-export function BaseMap({
+export function MintMap({
   mapKey,
   mapType = 'google',
   base = { center: new Position(-25.344, 131.031), zoomLevel: 12 },
@@ -37,16 +37,16 @@ export function BaseMap({
         </select>
       </div>
       <div style={{ flex: '1 1 auto' }}>
-        <MintMap
+        <MintUIMap
           mapKey={mapKey || String(customFields[`${type}MapKey`])}
           mapType={type}
           base={base}
           {...props}
         >{children}
-        </MintMap>
+        </MintUIMap>
       </div>
     </div>
   );
 }
 
-export default BaseMap;
+export default MintMap;

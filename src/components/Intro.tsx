@@ -1,11 +1,11 @@
 import { MapMarkerWrapper, Position } from '@mint-ui/map';
 import React from 'react';
 
-import BaseMap from './common/BaseMap';
+import { MintMap } from './common/BaseMap';
 
 export function SampleMap() {
   return (
-    <BaseMap base={{ center: new Position(37.504497373023206, 127.04896282498558), zoomLevel: 16 }}>
+    <MintMap base={{ center: new Position(37.504497373023206, 127.04896282498558), zoomLevel: 16 }}>
       {/* Your marker */}
       <MapMarkerWrapper position={new Position(37.504497373023206, 127.04896282498558)}>
 
@@ -13,6 +13,6 @@ export function SampleMap() {
         <div style={{ width: '10px', height: '10px', background: 'red', borderRadius: '10px' }} />
 
       </MapMarkerWrapper>
-    </BaseMap>
+    </MintMap>
   );
 }
