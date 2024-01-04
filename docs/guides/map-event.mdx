@@ -1,1 +1,171 @@
 # 이벤트
+
+MintMap 에서는 지도에서 발생하는 이벤트의 스펙을 통일하여 하나로 제공합니다.  그래서 각 지도별로 이벤트 구현을 다르게 하지 않아도 됩니다.
+
+> 하지만 필요하면 여전히 MintMapController 로 부터 native map 객체를 가져와서(getMap()) 해당 지도 전용 이벤트리스너를 직접 추가하는것도 가능합니다.
+
+## 인라인 이벤트
+
+MintMap 컴포넌트에서 제한적으로 몇가지 이벤트를 지원합니다.
+이는 MintMap 개발 초기에 지원하던 기능들이 아직 남아있는 것으로, 추후 삭제/변경이 될 가능성이 있습니다.
+
+**단, onLoad 이벤트는 인라인 이벤트로만 설정할 수 있습니다.**
+
+```javascript
+
+<MintMap
+onLoad={(map:MapVendorType, controller:MintMapController)=>{
+  ...
+}}
+onBoundsChanged={(bounds:Bounds)=>{
+  ...
+}}
+onZoomChanged={(level:number)=>{
+  ...
+}}
+onClick={(positon:Position)=>{
+  ...
+}}
+onMouseMove={(positon:Position)=>{
+  ...
+}}
+ />
+
+```
+
+### onLoad
+
+지도가 초기화되면 native map 객체와 MintMapController 를 반환합니다.
+
+지도의 타입이 변경되면 다시 onLoad 가 발생하며, 해당 지도 타입에 맞는 map 과 controller 를 다시 얻을 수 있습니다.
+
+MintMap 바깥에서 controller 의 참조를 얻기 위해서는 onLoad 내에서 처리해야 합니다.
+
+> MintMap 의 children 은 useMintMapController() hook 을 통해서 controller 를 얻을 수 있습니다.
+
+### onBoundsChanged
+
+지도의 Bounds 정보가 변경되었을때 발생합니다.  native map 의 idle 이벤트와 동일합니다.
+
+> 이름에서 혼동이 올 수 있어서 추후에는 이름이 변경될 수 있습니다.
+
+### onZoomChanged
+
+지도의 줌이 변경되었을때 발생합니다. native map 의 zoom_changed 이벤트와 동일합니다.
+
+### onClick
+
+지도에 클릭했을때 발생합니다.  native map 의 click 이벤트와 동일합니다.
+
+### onMouseMove
+
+지도위에서 마우스 이동시 발생합니다.  native map 의 mousemove 이벤트와 동일합니다.
+
+## 이벤트 리스너
+
+MintMapController 의 addEventListener 를 통해 이벤트를 등록합니다.
+
+**이벤트 리스너 방식은 인라인 이벤트와 다르게 반드시 직접 해제해줘야합니다. 그렇지 않으면 메모리누수의 원인이 됩니다.**
+
+이벤트의 유형은 지도별로 통일되어 있으나, 일부 지도에서 지원하지 않는 이벤트는 임의 처리가 되어 있습니다.
+> 예를들면, 구글은 줌 레벨의 변경 전에 일어나는 ZOOMSTART 이벤트를 지원하지 않습니다. 그래서 내부적으로 ZOOMSTART 이벤트는 ZOOM_CHANGED 로 대체되어 있습니다.
+
+또한 이벤트는 크게 지도의 이벤트와 지도 UI (포인터) 이벤트로 구분됩니다.
+
+```javascript
+
+useEffect(()=>{
+  
+  const idle = (eventParam:EventParam<MapEventParam | MapUIEventParam>)=>{
+    ...
+  }
+
+  controller.addEventListener('IDLE', idle);
+
+  return ()=>{
+    controller.removeEventListener('IDLE', idle);
+  }
+
+}, []);
+
+<MintMap
+onLoad={(map:MapVendorType, controller:MintMapController)=>{
+  
+}}
+
+```
+
+### 지도 이벤트
+  - IDLE
+  - BOUNDS_CHANGED
+  - CENTER_CHANGED
+  - ZOOMSTART
+  - ZOOM_CHANGED
+
+### 지도 UI 이벤트
+  - CLICK
+  - DBLCLICK
+  - MOUSEDOWN
+  - MOUSEUP
+  - MOUSEOUT
+  - MOUSEMOVE
+  - MOUSEOVER
+  - DRAG
+  - DRAGSTART
+  - DRAGEND
+  - RIGHTCLICK
+  - CONTEXTMENU
+
+### 이벤트 리스너 파라미터
+
+이벤트의 파라미터는 공통부분이 존재하고 이벤트의 구분에 따라 크게 두가지의 파라미터가 세분화되어 있습니다.
+
+#### 공통 파라미터
+
+- mapType
+
+  현재 지도의 타입입니다. ("naver", "google" 등...)
+
+- name
+
+  발생한 이벤트의 종류입니다.
+
+- vendorEventName
+
+  native map 의 이벤트 종류입니다.
+
+- param
+
+  지도 이벤트 또는 지도 UI 이벤트에 따라 해당 파리미터가 결정됩니다.
+
+#### 지도 이벤트 파라미터
+
+공통 파라미터의 param 에 아래의 항목들이 리턴됩니다.
+
+- center
+
+  이벤트 발생 시점의 중심좌표입니다.
+
+- bounds
+
+  이벤트 발생 시점의 Bounds 입니다.
+
+- zoomLevel
+
+  이벤트 발생 시점의 줌 레벨입니다.
+
+#### 지도 UI 이벤트 파라미터
+
+공통 파라미터의 param 에 아래의 항목들이 리턴됩니다.
+
+- position
+
+  마우스 포인터 위치에 해당하는 좌표입니다.
+
+- offset
+
+  마우스 포인터 위치의 offset 정보입니다.
+
+- pointerEvent
+
+  native dom 의 pointer event 입니다.
