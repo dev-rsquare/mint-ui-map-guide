@@ -91,6 +91,16 @@ const config = {
             label: '시작하기',
           },
           {
+            to: '/docs/guides/component-basic',
+            position: 'left',
+            label: '활용가이드',
+          },
+          {
+            to: '/docs/advanced-guides/performance',
+            position: 'left',
+            label: '고급가이드',
+          },
+          {
             type: 'search',
             position: 'right',
           },
