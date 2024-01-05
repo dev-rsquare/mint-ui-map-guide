@@ -1,10 +1,3 @@
-import { CustomLoading } from "@site/src/components/CustomLoading"
-
-# 커스텀 로딩 컴포넌트
-
-지도의 로딩중에 나오는 화면을 커스텀 컴포넌트로 대체할 수 있습니다.
-
-```javascript
 import { MapMarkerWrapper, Position } from '@mint-ui/map';
 import React from 'react';
 
@@ -32,6 +25,3 @@ export function CustomLoading() {
     </MintMap>
   );
 }
-```
-
-<CustomLoading/>
