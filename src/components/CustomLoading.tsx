@@ -3,9 +3,18 @@ import React from 'react';
 
 import { MintMap } from './common/BaseMap';
 
-export function SampleMap() {
+const LoadingComponent = () => (
+  <div style={{ display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+    로딩중입니다...
+  </div>
+);
+
+export function CustomLoading() {
   return (
-    <MintMap base={{ center: new Position(37.504497373023206, 127.04896282498558), zoomLevel: 16 }}>
+    <MintMap
+      base={{ center: new Position(37.504497373023206, 127.04896282498558), zoomLevel: 16 }}
+      mapLoadingComponent={LoadingComponent}
+    >
       {/* Your marker */}
       <MapMarkerWrapper position={new Position(37.504497373023206, 127.04896282498558)}>
 

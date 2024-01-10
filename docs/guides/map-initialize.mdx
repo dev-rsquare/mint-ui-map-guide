@@ -1,1 +1,39 @@
 # 초기 설정
+
+지도의 로드시에 초기 설정을 지정 할 수 있습니다.
+
+**이 설정은 반응형이 아니므로, 사용에 유의해야합니다.**
+
+MintMap 의 base 속성은 다음과 같은 구성을 가지고 있습니다.
+
+## BaseProps
+
+### center
+
+초기 중심좌표를 설정합니다.
+
+### zoomLevel
+
+초기 줌 레벨을 설정합니다.
+
+### maxZoomLevel / minZoomLevel
+최대 최소 줌 레벨을 제한합니다.
+
+이 값을 설정하는 경우 이를 벗어나는 줌 레벨로는 동작하지 않습니다.
+
+### mapCursor
+지도의 기본 커서 모양을 결정합니다.
+
+값은 css 의 cursor 속성을 따릅니다.
+
+## BaseProps 사용 예
+
+```javascript
+<MintMap base={{
+  center: new Position(37.50449731, 127.04896283),
+  zoomLevel : 15,
+  minZoomLevel : 10,
+  maxZoomLevel : 21,
+  mapCursor : 'crosshair'
+}}>
+```

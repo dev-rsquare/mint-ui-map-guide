@@ -6,15 +6,20 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary: #67c39c;
+  --ifm-color-primary-dark: #52af88;
+  --ifm-color-primary-darker: #408a6b;
+  --ifm-color-primary-darkest: #316b53;
   --ifm-color-primary-light: #33925d;
   --ifm-color-primary-lighter: #359962;
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* blockquote */
+  --ifm-blockquote-border-color: rgb(231, 196, 0);
+  --ifm-blockquote-border-left-width: 4px;
+  --ifm-blockquote-background-color: #f5f5f5;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -27,4 +32,17 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* blockquote */
+  --ifm-blockquote-border-color: rgb(73, 183, 0);
+  --ifm-blockquote-border-left-width: 4px;
+  --ifm-blockquote-background-color: #5e5e5e;
+}
+
+blockquote {
+  background: var(--ifm-blockquote-background-color);
+}
+
+blockquote>p {
+  padding: 15px 0px;
 }

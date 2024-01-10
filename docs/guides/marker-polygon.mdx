@@ -1,1 +1,114 @@
+import { PolygonMarkerMap, PolygonMarkerInner } from "@site/src/components/PolygonMarkerMap"
+
 # 폴리곤 마커
+
+폴리곤 마커는 기본 마커의 특성을 가진채 폴리곤을 표현할 수 있도록 해주는 컴포넌트입니다.
+
+```javascript
+const paths = [
+  new Position(37.4002343929478, 127.108339583181),
+  new Position(37.4002330712894, 127.107806511177),
+  new Position(37.4004906706981, 127.107806987924),
+  new Position(37.4004919924535, 127.108339948814),
+];
+
+export function PolygonMarkerMap() {
+  return (
+    <MintMap base={{ center: new Position(37.4004906706981, 127.107806987924), zoomLevel: 18 }}>
+      <PolygonMarker position={paths} shapeProperties={{ fill: 'blue', stroke: 'red', strokeWidth: 3 }} />
+    </MintMap>
+  );
+}
+```
+
+<PolygonMarkerMap />
+
+## 기본 기능
+
+### position
+
+position 은 폴리곤의 외곽 path 정보입니다. 
+
+### innerPositions
+
+innerPositions 는 폴리곤 내부의 punching 되는 영역을 지정합니다.
+
+path 를 여러개 지정하여 영역을 여러개 지정할 수 있습니다.
+
+
+```javascript
+const innerPaths = [
+  new Position(37.4002343929478 + 0.00005, 127.108339583181 - 0.00005),
+  new Position(37.4002330712894 + 0.00005, 127.107806511177 + 0.00005),
+  new Position(37.4004906706981 - 0.00005, 127.107806987924 + 0.00005),
+  new Position(37.4004919924535 - 0.00005, 127.108339948814 - 0.00005),
+];
+
+export function PolygonMarkerInner() {
+  return (
+    <MintMap base={{ center: new Position(37.4004906706981, 127.107806987924), zoomLevel: 19 }}>
+      <PolygonMarker position={paths} innerPositions={[ innerPaths ]} />
+    </MintMap>
+  );
+}
+```
+
+<PolygonMarkerInner />
+
+### background
+
+폴리곤의 배경색을 지정합니다.  (기본값은 lightgreen)
+
+### visible
+
+폴리곤의 visible 여부를 지정합니다.
+
+### zIndex
+
+폴리곤의 zIndex 를 지정합니다.
+
+이 값은 마커 공통으로 사용되는 값으로, 우선순위 결정에 동일한 적용을 받습니다.
+
+### debug
+
+마커 기본 debug 와 같은 역할을 합니다.
+
+### debugLabel
+
+마커 기본 debugLabel 와 같은 역할을 합니다.
+
+##  Path 관련
+
+### simplifyPath
+
+입력받은 path 의 simplify 여부를 지정합니다.  기본적으로 적용되는 값이며 만약 false 로 적용하는 경우에는 모든 path 에 대해 폴리곤이 그려집니다.
+
+### simplifyTolerance
+
+simplifyPath 가 적용될때 기준값을 지정합니다.  (기본값은 1)
+
+## 폴리곤 그리기
+
+### mode
+
+폴리곤 또는 폴리라인을 선택하여 그릴 수 있습니다.
+
+mode 가 "POLYLINE" 인 경우에는 내부적으로 svg 에 fill 처리가 되지 않습니다. 나머지는 폴리곤과 동일합니다.
+
+### svgProperties
+
+폴리곤 마커는 내부적으로 MapMarkerWrapper 컴포넌트 하위에 svg 를 렌더링 합니다. 이 svg 에 들어갈 속성을 지정할 수 있습니다.
+
+```javascript
+export function PolygonMarkerMap() {
+  return (
+    <MintMap base={{ center: new Position(37.4004906706981, 127.107806987924), zoomLevel: 18 }}>
+      <PolygonMarker position={paths} svgProperties={{ style:{pointerEvents:'none'} }} shapeProperties={{ fill: 'blue', stroke: 'red', strokeWidth: 3 }} />
+    </MintMap>
+  );
+}
+```
+
+### shapeProperties
+
+svg 하위의 path 엘레먼트에 대한 속성을 지정합니다.

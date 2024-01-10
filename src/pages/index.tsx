@@ -19,7 +19,7 @@ function HomepageHeader() {
             className='button button--secondary button--lg'
             to='/docs/intro'
           >
-            Tutorial - 5min ⏱️
+            시작하기
           </Link>
         </div>
       </div>
@@ -35,7 +35,7 @@ export default function Home(): JSX.Element {
       description={siteConfig.tagline}
     >
       <HomepageHeader />
-      <main>
+      <main style={{ flex: '1 1 auto', display: 'flex', alignItems: 'center' }}>
         <HomepageFeatures />
       </main>
     </Layout>
