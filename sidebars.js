@@ -49,8 +49,8 @@ const sidebars = {
           ]
         },
         'guides/overlay-control',
-        'guides/overlay-polyline',
         'guides/overlay-polygon',
+        'guides/overlay-polyline',
       ],
     },
     {
