@@ -46,19 +46,20 @@ const sidebars = {
             'guides/marker-basic',
             'guides/marker-polygon',
             'guides/marker-circle',
+            'guides/marker-canvas',
           ]
         },
         'guides/overlay-control',
-        'guides/overlay-polyline',
         'guides/overlay-polygon',
+        'guides/overlay-polyline',
       ],
     },
     {
       type: 'category',
       label: '고급 가이드',
       items: [
-        'advanced-guides/performance',
         'advanced-guides/util',
+        'advanced-guides/map-controller',
       ]
     }
   ],

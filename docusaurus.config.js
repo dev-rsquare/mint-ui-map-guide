@@ -96,7 +96,7 @@ const config = {
             label: '활용가이드',
           },
           {
-            to: '/docs/advanced-guides/performance',
+            to: '/docs/advanced-guides/util',
             position: 'left',
             label: '고급가이드',
           },

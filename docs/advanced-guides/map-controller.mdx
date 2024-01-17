@@ -1,0 +1,43 @@
+import { ClusterSample } from "@site/src/components/ClusterSample"
+
+# MintMapController
+
+MintMap 컴포넌트의 onLoad 또는 useMintMapController hook 을 통해서 얻을 수 있는 MintMapController 는 
+지도 API 관련 기능외에 몇가지 유용한 기능을 가지고 있습니다.
+
+## 기본 기능
+
+### getMap
+
+현재 MintMapController 의 native map 객체를 리턴합니다.
+
+### getMapType
+
+현재 MintMapController 의 지도 유형을 리턴합니다.
+
+## 좌표 변환
+
+### positionToOffset
+
+position: Position 값을 받아서 뷰포트 상의 픽셀 좌표로 변환해줍니다.
+
+### offsetToPosition
+
+뷰포트 상의 픽셀 좌표(Offset)를 받아서 Position 으로 변환해줍니다.
+
+## 포커싱
+
+### focusPositionsToFitViewport
+
+입력받은 positions:Position[] 값이 뷰포트에 꽉차도록 센터값과 줌레벨을 자동 조정해줍니다.
+
+### morph
+
+입력받은 position:Position 과 특정 zoom 레벨 값으로 이동처리합니다. 
+naver 의 경우에는 자연스럽게 이동되지만 다른 지도에서는 이 기능을 지원하지 않으므로 이동 효과 없이 한번에 이동됩니다.
+
+## 기타
+
+### printStatus
+
+현재 지도의 마커 생성 현황을 요약하여 console 에 출력합니다.

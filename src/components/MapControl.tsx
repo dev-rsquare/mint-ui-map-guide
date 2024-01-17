@@ -1,24 +1,7 @@
-import { MapControl } from "@site/src/components/MapControl"
+import { MapControlWrapper, Position } from '@mint-ui/map';
+import React from 'react';
 
-# 오버레이 - 컨트롤
-
-맵 위에 컨트롤을 표시하는 방법으로 MapControlWrapper 컴포넌트를 사용할 수 있습니다.
-
-다른 컴포넌트와는 다르게 지도에 투영되는것이 아니라 뷰포트에 고정되므로, 각종 지도 관련 컨트롤 들을 표현하기에 적당합니다.
-
-## 기본 기능
-
-### positionHorizontal
-
-컨트롤 컨테이너의 수평방향 기본 위치를 설정합니다. ('left', right', 'center')
-
-### positionVertical
-
-컨트롤 컨테이너의 수직방향 기본 위치를 설정합니다. ('top', 'bottom', 'center')
-
-### 위치 설정 예제
-
-```javascript
+import { MintMap } from './common/BaseMap';
 
 export function MapControl() {
   return (
@@ -71,24 +54,3 @@ export function MapControl() {
     </MintMap>
   );
 }
-```
-
-<MapControl />
-
-
-### width
-
-컨트롤 컨테이너의 폭을 설정합니다.  기본은 fit-content 입니다.
-
-### height
-
-컨트롤 컨테이너의 높이를 설정합니다.  기본은 fit-content 입니다.
-
-### zIndex
-
-컨트롤 간에 적용되는 z-index 를 설정할 수 있습니다.
-
-### disablePointerEvent
-
-일부 컨트롤 컨테이너가 포인터 이벤트를 받지 말아야 할 경우가 있는데 이때 사용할 수 있습니다.
-
