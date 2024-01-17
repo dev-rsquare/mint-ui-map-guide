@@ -54,7 +54,58 @@ tolerance 파라미터는 단순화 처리할 기준 거리값 입니다. 기본
 
 주어진 폴리곤의 면적을 구합니다. 단위는 m2 입니다.
 
-## 클러스터 계산
+## 지리 관련 계산
+
+GeoCalulator 는 좌표와 거리 관련된 계산 기능이 제공됩니다.
+
+### computeDistanceKiloMeter
+
+두 좌표 사이의 거리를 구합니다. (단위는 km)
+
+### convertMeterToLatitudeValue
+
+미터값을 latitude 값으로 변환합니다.
+특정 좌표에서 xx 미터 떨어진 좌표를 구할 때 사용할 수 있습니다.
+
+### convertLatitudeToMeterValue
+
+latitude 값을 미터로 변환합니다.
+좌표간의 거리를 잴때 사용할 수 있습니다.
+
+### convertLongitudeToMeterValue
+
+longitude 값을 미터로 변환합니다.
+longitude 값은 latitude 값에 따라 변하므로 latitude 값도 입력으로 필요합니다.
+
+## 기타 기능
+
+### getMapOfType
+
+native 지도 객체를 얻을 때 사용합니다.
+
+여러가지 지도를 모두 지원하는 경우 특정 지도의 기능을 활용하기 위해서는 다음과 같은 코드가 존재할 수 있습니다.
+
+```javascript
+const map = mintMapController.getMap();
+if(map instanceof naver.maps.Map){
+  ...
+}
+```
+
+위의 코드는 naver 지도 api 가 로드되지 않은 경우에는 런타임 오류가 발생하게 됩니다. (window.naver.maps 객체가 존재하지 않음)
+
+이때 getMapOfType 을 이용해서 특정 native 지도 객체가 있는지를 체크하면 window.naver.maps 를 안전하게 가져와서 사용할 수 있습니다.
+
+```javascript
+const naverMap = getMapOfType<naver.maps.Map>('naver', mintMapController.getMap());
+if(naverMap){
+  naverMap.morph(position, zoom, {
+    ...option
+  })
+}else{
+  ...
+}
+```
 
 ### getClusterInfo
 
@@ -118,7 +169,10 @@ export function ClusterSample() {
       base={{ center: CENTER, zoomLevel: 12 }}
       onLoad={(_v, c) => {
         mintController.current = c;
-        setTimeout(() => setCurrBounds(c.getCurrBounds()), 1000);
+        c.panningTo(CENTER);
+      }}
+      onBoundsChanged={(b) => {
+        !currBounds && setCurrBounds(b);
       }}
     >{memo}
     </MintMap>

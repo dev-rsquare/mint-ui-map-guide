@@ -53,7 +53,10 @@ export function ClusterSample() {
       base={{ center: CENTER, zoomLevel: 12 }}
       onLoad={(_v, c) => {
         mintController.current = c;
-        setTimeout(() => setCurrBounds(c.getCurrBounds()), 1000);
+        c.panningTo(CENTER);
+      }}
+      onBoundsChanged={(b) => {
+        !currBounds && setCurrBounds(b);
       }}
     >{memo}
     </MintMap>

@@ -46,6 +46,7 @@ const sidebars = {
             'guides/marker-basic',
             'guides/marker-polygon',
             'guides/marker-circle',
+            'guides/marker-canvas',
           ]
         },
         'guides/overlay-control',
@@ -57,7 +58,6 @@ const sidebars = {
       type: 'category',
       label: '고급 가이드',
       items: [
-        'advanced-guides/performance',
         'advanced-guides/util',
       ]
     }
