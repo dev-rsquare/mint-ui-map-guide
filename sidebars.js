@@ -59,6 +59,7 @@ const sidebars = {
       label: '고급 가이드',
       items: [
         'advanced-guides/util',
+        'advanced-guides/map-controller',
       ]
     }
   ],
