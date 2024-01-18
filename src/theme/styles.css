@@ -42,21 +42,12 @@ dialog {
   padding: 0;
 }
 
-dialog {
+.text-container {
+  width: 550px;
+}
 
-  .text-for-search {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .text-container {
-    width: 550px;
-  }
-
-  .text-container-history {
-    width: 500px;
-  }
+.text-container-history {
+  width: 500px;
 }
 
 [data-theme='dark'] dialog {
@@ -296,6 +287,12 @@ dialog h3 {
 
 .results-div {
   padding: 0 2px 12px 12px;
+}
+
+.text-for-search {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .favorited {
