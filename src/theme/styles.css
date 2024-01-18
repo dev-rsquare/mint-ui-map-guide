@@ -14,7 +14,7 @@
   color: black;
 }
 
-[data-theme='dark'] .search-button{
+[data-theme='dark'] .search-button {
   background-color: black;
   color: #b6bdba;
 }
@@ -33,13 +33,30 @@ dialog::backdrop body {
 }
 
 dialog {
-  width: 560px;
+  width: 650px;
   border: none;
   border-radius: 6px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   margin-block-start: 40px;
   background-color: #F1F2F5;
   padding: 0;
+}
+
+dialog {
+
+  .text-for-search {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .text-container {
+    width: 550px;
+  }
+
+  .text-container-history {
+    width: 500px;
+  }
 }
 
 [data-theme='dark'] dialog {
@@ -85,15 +102,15 @@ dialog li {
 
 dialog a {
   display: flex;
-  width: 100%; 
-  height: 100%; 
+  width: 100%;
+  height: 100%;
   background-color: white;
   border-radius: 4px;
   color: black;
   padding-left: 40px;
   padding-right: 20px;
   justify-content: center;
-  flex-direction: column; 
+  flex-direction: column;
 }
 
 dialog a:hover {
@@ -101,9 +118,9 @@ dialog a:hover {
   color: black;
 }
 
-dialog a > div {
+dialog a>div {
   height: 20.5px;
-  line-height: 22px;
+  line-height: 15px;
 }
 
 dialog a div:nth-child(2) {
@@ -199,7 +216,7 @@ dialog h3 {
 .favorite:hover {
   border: 1px solid transparent;
   background-color: #3d5749 !important;
-  border-radius: 50%; 
+  border-radius: 50%;
 }
 
 [data-theme='dark'] .favorite {
@@ -222,7 +239,7 @@ dialog h3 {
 .delete-history:hover {
   border: 1px solid transparent;
   background-color: #3d5749 !important;
-  border-radius: 50%; 
+  border-radius: 50%;
 }
 
 [data-theme='dark'] .delete-history:hover {
@@ -265,8 +282,8 @@ dialog h3 {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background-color: rgba(0,0,0,.5);
-  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+  background-color: rgba(0, 0, 0, .5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
 [data-theme='dark'] ::-webkit-scrollbar-thumb {

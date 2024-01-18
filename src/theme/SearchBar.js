@@ -34,7 +34,7 @@ export default function SearchBarWrapper() {
     const handleKeyPress = (event) => {
       if (event.key === 'Escape') {
         setIsSearchOpen(false);
-      } 
+      }
     };
 
     window.addEventListener('keydown', handleKeyPress);
@@ -49,9 +49,9 @@ export default function SearchBarWrapper() {
       if (isSearchOpen) {
         modalRef.current.showModal();
         setSearchText('');
-      } 
+      }
     }
-    
+
     recentRef.current && (recentRef.current.scrollTop = 0)
     favoriteRef.current && (favoriteRef.current.scrollTop = 0)
 
@@ -71,13 +71,13 @@ export default function SearchBarWrapper() {
 
   return (
     <>
-      <button className='search-button' onClick={ () => setIsSearchOpen(true) }>검색</button>
+      <button className='search-button' onClick={() => setIsSearchOpen(true)}>검색</button>
       <SearchModal recentRef={recentRef} favoriteRef={favoriteRef} favoriteList={favoriteList} setFavoriteList={setFavoriteList} searchList={searchList} setSearchList={setSearchList} searchText={searchText} setSearchText={setSearchText} isSearchOpen={isSearchOpen} setIsSearchOpen={setIsSearchOpen} modalRef={modalRef} searchData={data} />
     </>
   );
 }
 
-function SearchModal({ recentRef, favoriteRef, favoriteList, setFavoriteList, searchList, setSearchList, isSearchOpen, searchText, setSearchText, setIsSearchOpen, modalRef,  searchData }) {
+function SearchModal({ recentRef, favoriteRef, favoriteList, setFavoriteList, searchList, setSearchList, isSearchOpen, searchText, setSearchText, setIsSearchOpen, modalRef, searchData }) {
   const filteredData = filterData(searchText, searchData);
   const resultsRef = useRef(null);
   const inputRef = useRef(null);
@@ -105,9 +105,9 @@ function SearchModal({ recentRef, favoriteRef, favoriteList, setFavoriteList, se
           setIsSearchOpen(false);
           emptyInput();
         }
-      }}> 
+      }}>
         <div className='input-div'>
-          <input 
+          <input
             ref={inputRef}
             placeholder='검색'
             value={searchText}
@@ -145,16 +145,16 @@ function SearchHistory({ inputRef, recentRef, favoriteRef, favoriteList, setFavo
           if (currentIndex === 0) {
             recentRef.current.scrollTop = 0;
           }
-          if ((currentIndex+1) * 60 - 240 > recentRef.current.scrollTop) {
+          if ((currentIndex + 1) * 60 - 240 > recentRef.current.scrollTop) {
             recentRef.current.scrollBy(0, 60);
           } else if (recentRef.current.scrollTop > currentIndex * 60) {
-            recentRef.current.scrollTop = currentIndex* 60;
+            recentRef.current.scrollTop = currentIndex * 60;
           }
         } else {
           if (currentIndex - searchList.length === 0) {
             favoriteRef.current.scrollTop = 0;
           }
-          if ((currentIndex+1 - searchList.length) * 60 - 240 > favoriteRef.current.scrollTop) {
+          if ((currentIndex + 1 - searchList.length) * 60 - 240 > favoriteRef.current.scrollTop) {
             favoriteRef.current.scrollBy(0, 60);
           } else if (favoriteRef.current.scrollTop > (currentIndex - searchList.length) * 60) {
             favoriteRef.current.scrollTop = (currentIndex - searchList.length) * 60;
@@ -162,7 +162,7 @@ function SearchHistory({ inputRef, recentRef, favoriteRef, favoriteList, setFavo
         }
       }
     }
-      
+
     const scrollUp = () => {
       const lastIndex = searchList.length + favoriteList.length - 1;
       const currentIndex = lastHovered - 1 < 0 ? lastIndex : lastHovered - 1;
@@ -174,8 +174,8 @@ function SearchHistory({ inputRef, recentRef, favoriteRef, favoriteList, setFavo
           }
           if (currentIndex * 60 < recentRef.current.scrollTop) {
             recentRef.current.scrollBy(0, -60);
-          } else if (recentRef.current.scrollTop + 240 < (currentIndex+1) * 60) {
-            recentRef.current.scrollTop = currentIndex* 60 - 180;
+          } else if (recentRef.current.scrollTop + 240 < (currentIndex + 1) * 60) {
+            recentRef.current.scrollTop = currentIndex * 60 - 180;
           }
         } else {
           if (currentIndex - searchList.length === favoriteList.length - 1) {
@@ -183,8 +183,8 @@ function SearchHistory({ inputRef, recentRef, favoriteRef, favoriteList, setFavo
           }
           if ((currentIndex - searchList.length) * 60 < favoriteRef.current.scrollTop) {
             favoriteRef.current.scrollBy(0, -60);
-          } else if (favoriteRef.current.scrollTop + 240 < (currentIndex - searchList.length +1) * 60) {
-            favoriteRef.current.scrollTop = (currentIndex - searchList.length)* 60 - 180;
+          } else if (favoriteRef.current.scrollTop + 240 < (currentIndex - searchList.length + 1) * 60) {
+            favoriteRef.current.scrollTop = (currentIndex - searchList.length) * 60 - 180;
           }
         }
       }
@@ -199,7 +199,7 @@ function SearchHistory({ inputRef, recentRef, favoriteRef, favoriteList, setFavo
       if (event.key === 'Enter') {
         event.preventDefault();
       }
-    
+
       if (totalLength !== 0 && isSearchOpen) {
         if (event.key === 'ArrowUp') {
           setLastHovered((prevHovered) => (prevHovered - 1 + totalLength) % totalLength);
@@ -229,9 +229,9 @@ function SearchHistory({ inputRef, recentRef, favoriteRef, favoriteList, setFavo
         }
       }
     };
-  
+
     window.addEventListener('keydown', handleKeyPress);
-  
+
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
@@ -244,7 +244,7 @@ function SearchHistory({ inputRef, recentRef, favoriteRef, favoriteList, setFavo
   const handleMouseEnter = (index) => {
     setLastHovered(index);
   }
-  
+
   const mouseOverFavorite = (index) => {
     if (index !== -1) {
       setHoveredFavorite(index);
@@ -255,7 +255,7 @@ function SearchHistory({ inputRef, recentRef, favoriteRef, favoriteList, setFavo
 
   const processLongText = (text) => {
     const textToShow = text.length > 38 ? text.slice(0, 38) + '...' : text;
-  
+
     return textToShow;
   }
 
@@ -265,7 +265,7 @@ function SearchHistory({ inputRef, recentRef, favoriteRef, favoriteList, setFavo
 
       if (modifiedList === 'searchList' && deletedIdx - searchList.length === 0) {
         setLastHovered(deletedIdx - 1);
-      } else if (modifiedList === 'favoriteList' && favoriteList.length===0 && searchList.length > 4) {
+      } else if (modifiedList === 'favoriteList' && favoriteList.length === 0 && searchList.length > 4) {
         setLastHovered(0);
       } else if (lastIdx < deletedIdx) {
         setLastHovered(lastIdx);
@@ -282,10 +282,10 @@ function SearchHistory({ inputRef, recentRef, favoriteRef, favoriteList, setFavo
   const deleteHistory = (index, list, setList, storageKey) => {
     const updatedList = [...list];
     updatedList.splice(index, 1);
-    storageKey==='favoriteList' ? setDeletedIdx(index + searchList.length) : setDeletedIdx(index);
+    storageKey === 'favoriteList' ? setDeletedIdx(index + searchList.length) : setDeletedIdx(index);
     localStorage.setItem(storageKey, JSON.stringify(updatedList));
     setList(updatedList);
-    setModifiedList(storageKey); 
+    setModifiedList(storageKey);
 
     inputRef.current.focus();
   };
@@ -319,11 +319,11 @@ function SearchHistory({ inputRef, recentRef, favoriteRef, favoriteList, setFavo
               <li key={item.pathName} className={index === lastHovered ? 'hovered' : ''} onMouseMove={() => handleMouseEnter(index)}>
                 <Link to={item.pathName} onClick={() => handleSearchClick(favoriteList, searchList, setSearchList, setSearchText, setIsSearchOpen, modalRef, item)}>
                   {item.type === 'page' ? (
-                    <div>{item.pageName}</div>
+                    <TextBox history>{item.pageName}</TextBox>
                   ) : (
                     <>
-                      <div>{item.type === 'heading' ? item.heading : processLongText(item.text)}</div>
-                      <div>{item.pageName}</div>
+                      <TextBox history>{item.type === 'heading' ? item.heading : processLongText(item.text)}</TextBox>
+                      <TextBox history>{item.pageName}</TextBox>
                     </>
                   )}
                 </Link>
@@ -397,27 +397,27 @@ function SearchResult({ composeEnd, favoriteList, searchList, setSearchList, isS
         if (currentIndex === 0) {
           pageRef.current.scrollTop = 0;
         }
-        if ((currentIndex+1) * 60 - containerHeight > pageRef.current.scrollTop) {
+        if ((currentIndex + 1) * 60 - containerHeight > pageRef.current.scrollTop) {
           pageRef.current.scrollBy(0, 60);
         }
       } else if (currentIndex < pageData.length + headingData.length) {
         if (currentIndex - pageData.length === 0) {
           headingRef.current.scrollTop = 0;
         }
-        if ((currentIndex+1 - pageData.length) * 60 - containerHeight > headingRef.current.scrollTop) {
+        if ((currentIndex + 1 - pageData.length) * 60 - containerHeight > headingRef.current.scrollTop) {
           headingRef.current.scrollBy(0, 60);
         }
       } else {
         if (currentIndex - pageData.length - headingData.length === 0) {
           contentRef.current.scrollTop = 0;
         }
-        if ((currentIndex+1 - pageData.length - headingData.length) * 60 - containerHeight > contentRef.current.scrollTop) {
+        if ((currentIndex + 1 - pageData.length - headingData.length) * 60 - containerHeight > contentRef.current.scrollTop) {
           contentRef.current.scrollBy(0, 60);
         }
       }
     }
   }
-    
+
 
   const scrollUp = () => {
     const lastIndex = pageData.length + headingData.length + contentData.length - 1;
@@ -451,10 +451,10 @@ function SearchResult({ composeEnd, favoriteList, searchList, setSearchList, isS
 
   const handleKeyPress = (event) => {
     const totalLength = pageData.length + headingData.length + contentData.length;
-    
+
     if (isSearchOpen && (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'Tab')) {
       event.preventDefault();
-    } 
+    }
     if (event.key === 'Enter') {
       event.preventDefault();
     }
@@ -480,7 +480,7 @@ function SearchResult({ composeEnd, favoriteList, searchList, setSearchList, isS
         history.push(pathName);
         handleSearchClick(favoriteList, searchList, setSearchList, setSearchText, setIsSearchOpen, modalRef, item);
       } else if (event.key === 'Tab' && composeEnd) {
-        if (totalLength !== pageData.length && totalLength !== headingData.length && totalLength !== contentData.length){
+        if (totalLength !== pageData.length && totalLength !== headingData.length && totalLength !== contentData.length) {
           if (pageData.length !== 0 && headingData.length !== 0 && contentData.length !== 0) {
             if (lastHovered < pageData.length) {
               setLastHovered(pageData.length);
@@ -524,7 +524,7 @@ function SearchResult({ composeEnd, favoriteList, searchList, setSearchList, isS
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyPress);
-  
+
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
@@ -536,7 +536,7 @@ function SearchResult({ composeEnd, favoriteList, searchList, setSearchList, isS
     headingRef.current && (headingRef.current.scrollTop = 0);
     contentRef.current && (contentRef.current.scrollTop = 0);
   }, [isSearchOpen, searchText])
-  
+
   let containerClass;
   if (pageData.length >= 3 && headingData.length >= 3 && contentData.length >= 3) {
     containerClass = 'results-container'
@@ -545,72 +545,72 @@ function SearchResult({ composeEnd, favoriteList, searchList, setSearchList, isS
   }
 
   return (
-    pageData.length === 0 && headingData.length === 0 && contentData.length === 0 ? 
-    (<div className='no-result'>'{searchText}'에 대한 검색 결과가 없습니다.</div>) : 
-    (
-      <div>
-        {pageData.length !== 0 && (
-          <>
-            <h3>
-              페이지
-            </h3>
-            <ul className={containerClass} ref={pageRef}>
-              {pageData.map((item, index) => (
-                <li key={index} onMouseMove={() => {handleMouseMove(index)}} 
-                className={lastHovered === index ? 'hovered' : ''}
-                >
-                  <Link to={item.pathName} onClick={() => handleSearchClick(favoriteList, searchList, setSearchList, setSearchText, setIsSearchOpen, modalRef, item)}>
-                    <ProcessText text={item.pageName} userInput={searchText} />
-                  </Link> 
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-        {headingData.length !== 0 && (
-          <>
-            <h3>
-              # 헤더
-            </h3>
-            <ul className={containerClass} ref={headingRef}>
-              {headingData.map((item, index) => (
-                <li key={index} onMouseMove={() => {handleMouseMove(index + pageData.length)}} 
-                className={lastHovered === index + pageData.length ? 'hovered' : ''}
-                >
-                  <Link to={item.pathName} onClick={() => handleSearchClick(favoriteList, searchList, setSearchList, setSearchText, setIsSearchOpen, modalRef, item)}>
-                    <ProcessText text={item.heading} userInput={searchText} />  
-                    <div>
-                      {item.pageName}
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-        {contentData.length !== 0 && (
-          <>
-            <h3>
-              내용
-            </h3>
-            <ul className={containerClass} ref={contentRef}>
-              {contentData.map((item, index) => (
-                <li key={index} onMouseMove={() => {handleMouseMove(index + pageData.length + headingData.length)}} 
-                className={lastHovered === index + pageData.length + headingData.length ? 'hovered' : ''}
-                >
-                  <Link to={item.pathName} onClick={() => handleSearchClick(favoriteList, searchList, setSearchList, setSearchText, setIsSearchOpen, modalRef, item)}>
-                    <ProcessText text={item.text} userInput={searchText} />
-                    <div>
-                      {item.pageName}
-                    </div> 
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-      </div>
-    )
+    pageData.length === 0 && headingData.length === 0 && contentData.length === 0 ?
+      (<div className='no-result'>'{searchText}'에 대한 검색 결과가 없습니다.</div>) :
+      (
+        <div>
+          {pageData.length !== 0 && (
+            <>
+              <h3>
+                페이지
+              </h3>
+              <ul className={containerClass} ref={pageRef}>
+                {pageData.map((item, index) => (
+                  <li key={index} onMouseMove={() => { handleMouseMove(index) }}
+                    className={lastHovered === index ? 'hovered' : ''}
+                  >
+                    <Link to={item.pathName} onClick={() => handleSearchClick(favoriteList, searchList, setSearchList, setSearchText, setIsSearchOpen, modalRef, item)}>
+                      <ProcessText text={item.pageName} userInput={searchText} />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          {headingData.length !== 0 && (
+            <>
+              <h3>
+                # 헤더
+              </h3>
+              <ul className={containerClass} ref={headingRef}>
+                {headingData.map((item, index) => (
+                  <li key={index} onMouseMove={() => { handleMouseMove(index + pageData.length) }}
+                    className={lastHovered === index + pageData.length ? 'hovered' : ''}
+                  >
+                    <Link to={item.pathName} onClick={() => handleSearchClick(favoriteList, searchList, setSearchList, setSearchText, setIsSearchOpen, modalRef, item)}>
+                      <ProcessText text={item.heading} userInput={searchText} />
+                      <div>
+                        {item.pageName}
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          {contentData.length !== 0 && (
+            <>
+              <h3>
+                내용
+              </h3>
+              <ul className={containerClass} ref={contentRef}>
+                {contentData.map((item, index) => (
+                  <li key={index} onMouseMove={() => { handleMouseMove(index + pageData.length + headingData.length) }}
+                    className={lastHovered === index + pageData.length + headingData.length ? 'hovered' : ''}
+                  >
+                    <Link to={item.pathName} onClick={() => handleSearchClick(favoriteList, searchList, setSearchList, setSearchText, setIsSearchOpen, modalRef, item)}>
+                      <ProcessText text={item.text} userInput={searchText} />
+                      <div>
+                        {item.pageName}
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+      )
   )
 }
 
@@ -625,9 +625,9 @@ function handleSearchClick(favoriteList, searchList, setSearchList, setSearchTex
       // If the item is already in the list, remove it from its current position in the copy
       updatedSearchList.splice(existingIndex, 1);
     }
-  
+
     updatedSearchList.unshift(item);
-  
+
     localStorage.setItem('searchList', JSON.stringify(updatedSearchList));
     setSearchList(updatedSearchList);
   }
@@ -646,14 +646,14 @@ function filterData(searchText, searchData) {
   words.forEach((word) => {
     const filteredKeys = keys.filter((key) => {
       const lowerKey = key.toLowerCase();
-      
+
       return Hangul.search(lowerKey, word.toLowerCase()) >= 0;
     });
 
     filteredKeys.forEach((key) => {
       if (filteredKeysList.indexOf(key) === -1) {
         filteredKeysList.push(key);
-      } 
+      }
     })
   })
 
@@ -665,9 +665,9 @@ function filterData(searchText, searchData) {
       newHeading = item.heading.toLowerCase().replace(/['?!]/g, '').replace(/ /g, '-');
     }
 
-    const pathName = item.dirName ? `/docs/${item.dirName}/${item.fileName}#${newHeading}` : 
-    `/docs/${item.fileName}#${newHeading}`;
-    
+    const pathName = item.dirName ? `/docs/${item.dirName}/${item.fileName}#${newHeading}` :
+      `/docs/${item.fileName}#${newHeading}`;
+
     return pathName;
   }
 
@@ -682,7 +682,7 @@ function filterData(searchText, searchData) {
         const index = itemList.findIndex(existingItem => existingItem.text === item.text);
 
         if (index !== -1) {
-          itemList[index].frequency ++;
+          itemList[index].frequency++;
         } else {
           itemList.push(newItem);
         }
@@ -693,21 +693,21 @@ function filterData(searchText, searchData) {
           newItem.frequency = 1;
           itemList.push(newItem);
         } else {
-          itemList[index].frequency ++;
+          itemList[index].frequency++;
         }
       } else {
         const index = itemList.findIndex(existingItem => existingItem.type === 'page' && existingItem.pageName === item.pageName);
 
-        if (index === -1){
+        if (index === -1) {
           newItem.frequency = 1;
           itemList.push(newItem);
         } else {
-          itemList[index].frequency ++;
+          itemList[index].frequency++;
         }
       }
     });
-    });
-    
+  });
+
   // Sort itemList
   itemList.sort((a, b) => {
     const typeOrder = { 'page': 1, 'heading': 2, 'content': 3 };
@@ -735,9 +735,9 @@ function filterData(searchText, searchData) {
     // For 'page', no specific sorting within the same frequency
     return 0;
   });
-  
+
   // Filter the data into separate objects by 'type'
-  const pageData = []; 
+  const pageData = [];
   const headingData = [];
   const contentData = [];
   const pathList = [];
@@ -752,9 +752,9 @@ function filterData(searchText, searchData) {
         contentData.push(item);
       }
       pathList.push(item.pathName);
-    } 
+    }
   });
-  
+
   return {
     pageData,
     headingData,
@@ -763,6 +763,7 @@ function filterData(searchText, searchData) {
 }
 
 function ProcessText({ text, userInput }) {
+
   const words = userInput.split(' ').filter((word) => word != '');
 
   const matchingIdxArray = [];
@@ -775,78 +776,44 @@ function ProcessText({ text, userInput }) {
   })
 
   let firstMatch = matchingIdxArray[0][0];
+  let lastMatch = text.length - 1;
   matchingIdxArray.forEach((array) => {
     firstMatch = Math.min(firstMatch, array[0])
+    lastMatch = Math.max(lastMatch, array[1])
   })
 
-  let charsBefore = 0;
-  let charsAfter = 0;
-  let startIdx = 0;
-  let endIdx = text.length;
-
-  if (text.length > 40) {
-    // Number of characters to display before and after the highlighted part
-    charsBefore = 20;
-    charsAfter = 20;
-
-    // Calculate the start and end indices for the truncated text
-    startIdx = Math.max(0, firstMatch - charsBefore);
-    endIdx = Math.min(text.length, firstMatch + charsAfter);
-
-    if (endIdx - startIdx < 38) {
-      if (startIdx === 0) {
-        endIdx = Math.min(text.length, 38);
-      } else if (endIdx === text.length) {
-        startIdx = Math.max(0, text.length - 38)
-      }
-    }
+  let textStartIdx = 0;
+  if (firstMatch > 10) {
+    textStartIdx = firstMatch - 5;
   }
 
-  const cleanUpRanges = (array) => {
-    const sortedArr = array.sort((a, b) => a[0] - b[0]);
-  
-    const result = [sortedArr[0]];
-  
-    for (let i = 1; i < sortedArr.length; i++) {
-      const current = sortedArr[i];
-      const last = result[result.length - 1];
-  
-      if (current[0] <= last[1]) {
-        if (current[1] > last[1]) {
-          last[1] = current[1];
-        }
-      } else {
-        current[0] < endIdx && result.push(current);
-      }
-    }
-  
-    return result;
+  let textBeforeMatch = matchingIdxArray[0][0];
+  let textAfterMatch = matchingIdxArray[0][1] + 1;
+
+  let textEndIdx = text.length;
+  if (lastMatch + 10 < text.length) {
+    textEndIdx = lastMatch + 5;
   }
 
-  const cleanIdxArray = cleanUpRanges(matchingIdxArray);
+  let text1 = text.substring(textStartIdx, textBeforeMatch);
+  let matchedText = text.substring(textBeforeMatch, textAfterMatch);
+  let text2 = text.substring(textAfterMatch, textEndIdx);
 
   const truncatedText = (
     <>
-      {cleanIdxArray.map((match, index) => (
-        <React.Fragment key={index}>
-          {index === 0 && startIdx > 0 && '...'}
-          {index === 0 && text.slice(startIdx, match[0])}
-
-          <span className='matched-text'>
-            {text.slice(match[0], match[1] + 1)}
-          </span>
-
-          {index < cleanIdxArray.length - 1 && (
-            text.slice(match[1] + 1, cleanIdxArray[index + 1][0])
-          )}
-
-          {index === cleanIdxArray.length - 1 &&
-            text.slice(match[1] + 1, endIdx)}
-        </React.Fragment>
-      ))}
-      {endIdx < text.length - 1 && '...'}
+      <TextBox>
+        {textStartIdx > 0 && '...'}
+        {text1}
+        <span className='matched-text'>{matchedText}</span>
+        {text2}
+      </TextBox>
     </>
   );
 
-  return <div>{truncatedText}</div>;
+  return <>{truncatedText}</>;
+}
+
+function TextBox({ children, history = false }) {
+  return <div className={`text-for-search ${history ? 'text-container-history' : 'text-container'}`}
+  >{children}</div>
 }
