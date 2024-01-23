@@ -60,6 +60,7 @@ const sidebars = {
       items: [
         'advanced-guides/util',
         'advanced-guides/map-controller',
+        'advanced-guides/map-game',
       ]
     }
   ],

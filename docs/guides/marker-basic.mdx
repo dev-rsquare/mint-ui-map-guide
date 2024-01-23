@@ -1,3 +1,5 @@
+import { MapRacing } from "@site/src/components/MapRacing/MapRacing"
+
 # 기본 마커
 
 MapMarkerWrapper 컴포넌트는 지도 위에 정보를 보여주는 가장 기본적인 방법입니다. 
@@ -105,6 +107,10 @@ movingAnimation 의 세부 속성은 다음과 같습니다.
 - velocity : 마커의 이동 속도를 설정합니다. 단위는 km/h 입니다. (60이면 시간당 60km 이동)
 - loop : path의 마지막 위치에서 계속 재생할지 여부입니다.
 - fps : 초당 몇번 움직일지의 여부입니다. 이 값이 2이면 초당 2번 이동합니다. fps 가 높으면 그만큼 이동을 위한 계산을 많이 하게되므로 성능을 잘 체크해야합니다.
+
+아래는 movingAnimation 을 이용한 간단한 레이싱 게임입니다.
+
+<MapRacing />
 
 ### disablePointerEvent
 

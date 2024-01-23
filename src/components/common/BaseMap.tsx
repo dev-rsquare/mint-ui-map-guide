@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 interface MapProps extends Omit<MintMapProps, 'mapKey'|'mapType'> {
   mapKey?:string;
   mapType?:MapType;
+  w?:string;
   h?:string;
 }
 
@@ -12,6 +13,7 @@ export function MintMap({
   mapKey,
   mapType = 'google',
   base = { center: new Position(-25.344, 131.031), zoomLevel: 12 },
+  w = '100%',
   h = '500px',
   children,
   ...props
@@ -24,7 +26,7 @@ export function MintMap({
   const { siteConfig: { customFields } } = useDocusaurusContext();
 
   return (
-    <div style={{ height: h, display: 'flex', flexDirection: 'column', marginBottom: '25px' }}>
+    <div style={{ width: w, height: h, display: 'flex', flexDirection: 'column', marginBottom: '25px' }}>
       <div style={{ flex: '0 0 50px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
         <select
           value={type}
